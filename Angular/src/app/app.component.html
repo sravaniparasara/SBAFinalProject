@@ -1,0 +1,82 @@
+<!-- Responsive navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container py-2">
+        <a href="#" aria-label="Product">
+            <img class="app-logo" src="../assets/logo.png" alt="" width="70" height="70">
+        </a>
+    </div>
+</nav>
+<!-- Page content-->
+<div class="container py-4" *ngIf="!isProductsLoading; else preloader">
+    <div class="d-flex align-items-end">
+        <div class="form-group col-lg-4">
+            <label for="packages" class="form-label">Product List</label>
+            <select class="form-select" id="packages" [(ngModel)]="selectedProduct" placholder="Select Product">
+                <option selected [ngValue]="null">Select Product</option>
+                <option *ngFor="let product of productsList" [ngValue]="product">{{product.productName}}</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary mx-5 mt-5" (click)="getProductData()"
+            [disabled]="!selectedProduct">Get
+            Details</button>
+    </div>
+    <div class="my-5" *ngIf="selectedProduct">
+        <h3>Product Detail</h3>
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col col-label">Product Name:</div>
+                <div class="col-10">{{selectedProduct.productName}}</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col col-label">Short Description:</div>
+                <div class="col-10">{{selectedProduct.shortDesc}}</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col col-label">Detailed Description:</div>
+                <div class="col-10">{{selectedProduct.description}}</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col col-label">Category:</div>
+                <div class="col-10">{{selectedProduct.category}}</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col col-label">Starting Price:</div>
+                <div class="col-10">{{selectedProduct.startingPrice}}</div>
+            </div>
+            <div class="row">
+                <div class="col col-label">Bid End Date:</div>
+                <div class="col-10">{{selectedProduct.bidEndDate}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="bidsList.length && !isDetailLoading; else preloader">
+        <h3>Bids</h3>
+        <table class="table">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">Bid Amount</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Mobile</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bid of bidsList">
+                    <th>{{bid.bidAmount}}</th>
+                    <td>{{bid.buyer.firstName}} {{bid.buyer.lastName}}</td>
+                    <td>{{bid.buyer.email}}</td>
+                    <td>{{bid.buyer.phone}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #preloader>
+    <div *ngIf="isProductsLoading || isDetailLoading" class="d-flex justify-content-center align-items-center h-100">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</ng-template>
