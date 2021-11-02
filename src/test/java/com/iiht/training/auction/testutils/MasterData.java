@@ -18,7 +18,7 @@ public class MasterData {
 		BidsDto bidsDto = new BidsDto();
 		bidsDto.setId(1L);
 		bidsDto.setBidAmount(25000.0);
-		bidsDto.setCustomerId(1L);
+		//bidsDto.setCustomerId(1L);
 		bidsDto.setProductId(1L);
 		bidsDto.setBiddingDate(LocalDate.now());
 		return bidsDto;
@@ -29,14 +29,14 @@ public class MasterData {
 		BidsDto bidsDto = new BidsDto();
 		bidsDto.setId(1L);
 		bidsDto.setBidAmount(25000.0);
-		bidsDto.setCustomerId(1L);
+		//bidsDto.setCustomerId(1L);
 		bidsDto.setProductId(1L);
 		bidsDto.setBiddingDate(LocalDate.now());
 		bidsDtos.add(bidsDto);
 		bidsDto = new BidsDto();
 		bidsDto.setId(2L);
 		bidsDto.setBidAmount(18000.0);
-		bidsDto.setCustomerId(2L);
+		//bidsDto.setCustomerId(2L);
 		bidsDto.setProductId(2L);
 		bidsDto.setBiddingDate(LocalDate.now());
 		bidsDtos.add(bidsDto);

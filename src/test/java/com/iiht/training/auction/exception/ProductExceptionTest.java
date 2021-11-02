@@ -46,26 +46,7 @@ public class ProductExceptionTest {
 		testReport();
 	}
 
-	@Test
-	public void testSaveProductInvalidDataException() throws Exception {
-		ProductDto productDto = MasterData.getProductDto();
-		ProductDto savedProductDto = MasterData.getProductDto();
-
-		savedProductDto.setProductId(1L);
-		productDto.setName("Ab");
-
-		when(this.productService.saveProduct(productDto)).thenReturn(savedProductDto);
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/products/register")
-				.content(MasterData.asJsonString(productDto)).contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		yakshaAssert(currentTest(),
-				(result.getResponse().getStatus() == HttpStatus.BAD_REQUEST.value() ? "true" : "false"),
-				exceptionTestFile);
-
-	}
+	
 	@Test
 	public void testUpdateProductInvalidDataException() throws Exception {
 		ProductDto productDto = MasterData.getProductDto();
@@ -80,47 +61,11 @@ public class ProductExceptionTest {
 				.accept(MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
+		
 		yakshaAssert(currentTest(),
 				(result.getResponse().getStatus() == HttpStatus.BAD_REQUEST.value() ? "true" : "false"),
 				exceptionTestFile);
 
 	}
 
-	
-
-	@Test
-	public void testGetProductByIdProductNotFoundException() throws Exception {
-		ExceptionResponse exResponse = new ExceptionResponse("Product with Id - 1 not Found!", System.currentTimeMillis(),
-				HttpStatus.NOT_FOUND.value());
-
-		when(this.productService.getProductById(1L)).thenThrow(new ProductNotFoundException("Product with Id - 1 not Found!"));
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/products/get/1")
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-		yakshaAssert(currentTest(),
-				(result.getResponse().getContentAsString().contains(exResponse.getMessage()) ? "true" : "false"),
-				exceptionTestFile);
-
-	}
-
-
-	@Test
-	public void testDeleteProductByIdProductNotFoundException() throws Exception {
-		ExceptionResponse exResponse = new ExceptionResponse("Product with Id - 1 not Found!", System.currentTimeMillis(),
-				HttpStatus.NOT_FOUND.value());
-
-		when(this.productService.deleteProduct(1L)).thenThrow(new ProductNotFoundException("Product with Id - 1 not Found!"));
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/products/delete/1")
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-		yakshaAssert(currentTest(),
-				(result.getResponse().getContentAsString().contains(exResponse.getMessage()) ? "true" : "false"),
-				exceptionTestFile);
-
-	}
-
-	
-}
+		}
