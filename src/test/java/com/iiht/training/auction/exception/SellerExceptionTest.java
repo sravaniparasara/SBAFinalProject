@@ -1,11 +1,9 @@
 package com.iiht.training.auction.exception;
 
-import static com.iiht.training.auction.testutils.TestUtils.currentTest;
-import static com.iiht.training.auction.testutils.TestUtils.exceptionTestFile;
-import static com.iiht.training.auction.testutils.TestUtils.testReport;
-import static com.iiht.training.auction.testutils.TestUtils.yakshaAssert;
-import static org.mockito.Mockito.when;
 
+import static com.iiht.training.auction.testutils.TestUtils.testReport;
+import static org.mockito.Mockito.when;
+import org.junit.Assert;
 import org.junit.jupiter.api.AfterAll;
 //import org.junit.Test;
 //import org.junit.jupiter.api.BeforeAll;
@@ -63,9 +61,8 @@ public class SellerExceptionTest {
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
-		yakshaAssert(currentTest(),
-				(result.getResponse().getStatus() == HttpStatus.BAD_REQUEST.value() ? "true" : "false"),
-				exceptionTestFile);
+		Assert.assertEquals(HttpStatus.BAD_REQUEST.value(),result.getResponse().getStatus());
+
 
 	}
 	
